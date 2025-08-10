@@ -1,0 +1,87 @@
+The database implementation looks great, however, I want to point out a few features haven't seen their implementations on the database. If I am overthinking, please correct me.
+Potential missed out:
+1. User profile & preference settings:
+- Profile type (public or anonymous). This is in the user settings or immediately ate signup/signin. The screen is 'Choose Your Visibility', they can also change is anytime they want. If they are of privacy mode, we randomize the username visible to the public. Do we need to save this in the database? If yes, then I havent seen this mentioned anywhere.
+- I am not seeing any implementation to track user Streak. Please take a look at the dashboard to remember what data we are tracking then implemenent backend that takes care of all the things, like Streak, Best Streak, Daily check in e.g mood & urges logging and journal entry. I dont see these features implemented in the database since we need to save for use in other features like Anchor AI.
+
+2. Community
+The database implementation of community-> Feed and community->partners have been well implemented. However, it looks like the community->Groups database implementation was completely ignored the forgotten. Groups will be created dynamically by admins via the admin panel, assigned fake members count. People can join and constribute on group discussions, you can like someone's group post, comment on it. From every user's screen, they can clearly visually distuguish their comments in the UI. The as been already implememted on the user interface.
+For the accountability partnerships, user must acknowledge requests from other users before they are actually partnered. Everything else is fine with the partnerships, just curious if acknowdgement required database/backend implementation. We also have a search bar in the Community-> Partners for users to search potential partners by username, I also dont see this backend implementation like the API endpoint. Apart from those few concerns on partnerships, keep everything else intact.
+
+3. Anchor AI
+You completely forgot about this feature. We need to limit rate of usage to lower the cost of AI, so the backend should have a reasonable monthly, daily limits that reasonates with a user monthly subscription of $3.99. Achor AI should use the cheapest AI model (Likely deepseek similar cheap options) and the model should have as much more all the info (Current Streak, Best Streak, Recovery Goals, Trigger Analysis data, Recovery Journal, Achievements etc) about the user to give personalized experience. Anchor will be sending 1 personalized daily message (which wll be pushed as a push notification as well) reminding user of the progress, recovery goals, word of encauragment. So user can decide to followup with chatting and Anchor should respond accordingly with confidence and much context.
+We should have a backend mechanisims that should pick a system prompt systematically to send to the to AI model to make sure each daily notification message feels new and authentic rather than using the same system prompt that can lead to daily Anchor check-ins sound similary/static and boring.
+
+4. Goals setter
+We also have a feature to let users set/update and track their goals from the profile tab but I dont see it's database implementation.  We should have backend and database implementation to track and show user his progress on the set recovery goals. That is why I mentioned we need as much data as possible from the user to be able to develop a simple logic to determine the progress of their goals pursuit in terms of percentage. This percentage values should be updated depending on user continued interaction with the app and the data collected from specific areas of interest.
+
+
+pg_dump -U your_username -h your_host -d your_database_name -f output_file.sql
+
+
+
+
+Looks like you forgot about community->feed. You did not implement that in the supabase database, please take a look at the frontend community->feed features and relate to how the database should be done. Also, how are we storing partnerships e.g, how is the database knowing all the partners linked to each individual user? Please check the frontend to understand how the database should look like. Also we have two options of signin/signup, with email and with Google, please check the current user database implementation and see if it takes care of that. What we user continues with google, will we still user the same users table. Make sure you check the frontend very well, check against the current database implementation to make sure our database is well designed
+
+
+
+
+------------------------------------------1. Elaborate the purpose of this functionality
+"Background job scheduler for daily streak updates and maintenance."
+
+2. What database/backend mechanisims are there to prevent duplicate likes from the same user on a feed->post and groups->comments->likes
+
+3. for the table streaks, what is the purpose of the column "last_check_in TIMESTAMP WITH TIME ZONE,"
+
+4. How will this endpoint be used in the application:
+Get Partner Requests:
+Route: /partners/requests
+Method: GET
+Parameters: None
+Authentication: JWT required in Authorization header
+Rate Limiting: Standard (e.g., 60 requests per minute per user)
+
+
+
+Take a look at the Kuitter app database schema, try understand what we have one so far in the database implementation then compare with the DOCS\Backend_Database_requirements.md and explain what hasn't been done yet.
+
+
+More concerns:
+1.How do partner chat with each other, is our database storing this, how about user chat with Anchor AI, are we managing chat history of both.
+2. How do we manage subscriptions (In-app purchases). We have monthly of $3.99 and yearly of $29.99 and it should work seamlessly on both android and Iphone users.
+3. We need to capture answer to user quizzes so we can use it for AI context. Our database currently doesn't capture this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

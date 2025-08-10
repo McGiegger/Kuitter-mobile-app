@@ -1,0 +1,34 @@
+# dependencies
+Kuitter-App/node_modules/
+
+# expo
+Kuitter-App/.expo/
+Kuitter-App/dist/
+Kuitter-App/web-build/
+Kuitter-App/expo-env.d.ts
+
+# native
+Kuitter-App/*.orig.*
+Kuitter-App/*.jks
+Kuitter-App/*.p8
+Kuitter-App/*.p12
+Kuitter-App/*.key
+Kuitter-App/*.mobileprovision
+
+# metro
+Kuitter-App/.metro-health-check*
+
+# debug
+Kuitter-App/npm-debug.*
+Kuitter-App/yarn-debug.*
+Kuitter-App/yarn-error.*
+
+# macos
+Kuitter-App/.DS_Store
+Kuitter-App/*.pem
+    
+# local env files
+Kuitter-App/.env*.local
+
+# typescript
+Kuitter-App/*.tsbuildinfo

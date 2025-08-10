@@ -1,0 +1,10 @@
+Superbase PAT: sbp_a68b0b1a68e4af6a63a1ccc77649220e2acc8a6a
+
+Database: Kuitter App
+PWD: TXtT7qr0PeAbjrta
+
+
+postgresql://postgres:TXtT7qr0PeAbjrta@db.jkjnmsxpxftzopnanymg.supabase.co:5432/postgres
+
+
+supabase db dump --schema public --file schema.sql --db-url "postgresql://postgres:TXtT7qr0PeAbjrta@db.jkjnmsxpxftzopnanymg.supabase.co:5432/postgres"
