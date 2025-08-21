@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Bell, Calendar, MapPin, TriangleAlert as AlertTriangle, ChevronRight } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 // Mock trigger log data
@@ -74,7 +74,7 @@ export default function TriggersScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Trigger Analysis</Text>
       </View>
@@ -100,12 +100,12 @@ export default function TriggersScreen() {
           <View style={styles.commonItems}>
             {triggerStats.commonTriggers.map((trigger, index) => (
               <View key={index} style={styles.commonItem}>
-                <AlertTriangle color="#D4AF37" size={20} />
+                <Ionicons name="warning" color="#FF3B30" size={16} />
                 <View style={styles.commonItemInfo}>
                   <Text style={styles.commonItemName}>{trigger.name}</Text>
                   <Text style={styles.commonItemCount}>{trigger.count} times</Text>
                 </View>
-                <ChevronRight color="#E0E0E0" size={20} />
+                <Ionicons name="chevron-forward" color="#E0E0E0" size={20} />
               </View>
             ))}
           </View>
@@ -116,12 +116,12 @@ export default function TriggersScreen() {
           <View style={styles.commonItems}>
             {triggerStats.commonLocations.map((location, index) => (
               <View key={index} style={styles.commonItem}>
-                <MapPin color="#D4AF37" size={20} />
+                <Ionicons name="location" color="#E0E0E0" size={16} />
                 <View style={styles.commonItemInfo}>
                   <Text style={styles.commonItemName}>{location.name}</Text>
                   <Text style={styles.commonItemCount}>{location.count} times</Text>
                 </View>
-                <ChevronRight color="#E0E0E0" size={20} />
+                <Ionicons name="chevron-forward" color="#E0E0E0" size={20} />
               </View>
             ))}
           </View>
@@ -157,7 +157,7 @@ export default function TriggersScreen() {
               <View key={log.id} style={styles.logCard}>
                 <View style={styles.logHeader}>
                   <View style={styles.logDate}>
-                    <Calendar size={16} color="#D4AF37" />
+                    <Ionicons name="calendar" color="#D4AF37" size={16} />
                     <Text style={styles.dateText}>{log.date}</Text>
                     <Text style={styles.timeText}>{log.time}</Text>
                   </View>
@@ -168,13 +168,13 @@ export default function TriggersScreen() {
                   </View>
                 </View>
                 <View style={styles.logLocation}>
-                  <MapPin size={16} color="#E0E0E0" />
+                  <Ionicons name="location" color="#E0E0E0" size={16} />
                   <Text style={styles.locationText}>{log.location}</Text>
                 </View>
                 <View style={styles.triggerTags}>
                   {log.triggers.map((trigger, index) => (
                     <View key={index} style={styles.triggerTag}>
-                      <AlertTriangle size={12} color="#D4AF37" />
+                      <Ionicons name="warning" color="#D4AF37" size={12} />
                       <Text style={styles.triggerText}>{trigger}</Text>
                     </View>
                   ))}
@@ -192,7 +192,7 @@ export default function TriggersScreen() {
         style={styles.logButton}
         onPress={handleLogTrigger}
       >
-        <Bell color="#FFFFFF" size={20} />
+        <Ionicons name="notifications" color="#D4AF37" size={24} />
         <Text style={styles.logButtonText}>Log New Trigger</Text>
       </TouchableOpacity>
     </LinearGradient>

@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { X } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const MAX_POST_LENGTH = 2000; // Set maximum character limit for posts
 
@@ -45,7 +45,7 @@ export default function CreatePost({ isVisible, onClose, onPost }: CreatePostPro
           <View style={styles.header}>
             <Text style={styles.headerTitle}>Create Post</Text>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <X color="#FFFFFF" size={24} />
+              <Ionicons name="close" color="#FFFFFF" size={24} />
             </TouchableOpacity>
           </View>
 

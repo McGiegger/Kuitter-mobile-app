@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Eye, EyeOff, ChevronRight, Shield } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 type VisibilityOption = 'public' | 'anonymous';
 
@@ -29,7 +29,7 @@ export default function VisibilityScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.header}>
-          <Shield color="#D4AF37" size={48} />
+          <Ionicons name="shield" color="#D4AF37" size={48} />
           <Text style={styles.title}>Choose Your Visibility</Text>
           <Text style={styles.subtitle}>
             Select how you want to appear to others in the community
@@ -45,7 +45,7 @@ export default function VisibilityScreen() {
             onPress={() => setSelectedOption('public')}
           >
             <View style={styles.optionIcon}>
-              <Eye color="#D4AF37" size={32} />
+              <Ionicons name="eye" color="#D4AF37" size={32} />
             </View>
             <View style={styles.optionContent}>
               <Text style={styles.optionTitle}>Public Profile</Text>
@@ -57,7 +57,7 @@ export default function VisibilityScreen() {
               styles.checkmark,
               selectedOption === 'public' && styles.selectedCheckmark
             ]}>
-              <ChevronRight color={selectedOption === 'public' ? '#D4AF37' : '#666'} size={24} />
+              <Ionicons name="chevron-forward" color={selectedOption === 'public' ? '#D4AF37' : '#666'} size={24} />
             </View>
           </TouchableOpacity>
 
@@ -69,7 +69,7 @@ export default function VisibilityScreen() {
             onPress={() => setSelectedOption('anonymous')}
           >
             <View style={styles.optionIcon}>
-              <EyeOff color="#D4AF37" size={32} />
+              <Ionicons name="eye-off" color="#D4AF37" size={32} />
             </View>
             <View style={styles.optionContent}>
               <Text style={styles.optionTitle}>Stay Anonymous</Text>
@@ -81,7 +81,7 @@ export default function VisibilityScreen() {
               styles.checkmark,
               selectedOption === 'anonymous' && styles.selectedCheckmark
             ]}>
-              <ChevronRight color={selectedOption === 'anonymous' ? '#D4AF37' : '#666'} size={24} />
+              <Ionicons name="chevron-forward" color={selectedOption === 'anonymous' ? '#D4AF37' : '#666'} size={24} />
             </View>
           </TouchableOpacity>
         </View>
@@ -102,7 +102,7 @@ export default function VisibilityScreen() {
           <Text style={styles.continueButtonText}>
             {fromSettings === 'true' ? 'Save Changes' : 'Continue'}
           </Text>
-          <ChevronRight color="#FFFFFF" size={20} />
+          <Ionicons name="chevron-forward" color="#FFFFFF" size={20} />
         </TouchableOpacity>
       </View>
     </LinearGradient>

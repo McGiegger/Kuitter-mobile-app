@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Timer, Trophy, Target, Calendar, TrendingUp, Brain, Book, Heart, Shield, Bell, Plus, ChevronRight } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const recoveryGoals = [
@@ -41,37 +41,37 @@ const achievements = [
     id: '1', 
     title: '7 Days Strong', 
     description: 'Completed your first week', 
-    icon: Timer,
+    icon: 'time',
     earned: true,
   },
   { 
     id: '2', 
     title: 'Mindful Warrior', 
     description: 'Completed 10 journal entries', 
-    icon: Book,
+    icon: 'book',
     earned: true,
   },
   { 
     id: '3', 
     title: 'Urge Surfer', 
     description: 'Overcame 5 strong urges', 
-    icon: Brain,
+    icon: 'bulb',
     earned: false,
   },
   { 
     id: '4', 
     title: 'Connection Builder', 
     description: 'Active in community for 30 days', 
-    icon: Heart,
+    icon: 'heart',
     earned: false,
   },
 ];
 
 const stats = [
-  { id: '1', title: 'Current Streak', value: '7 days', icon: Timer },
-  { id: '2', title: 'Longest Streak', value: '15 days', icon: Trophy },
-  { id: '3', title: 'Urges Overcome', value: '24', icon: Shield },
-  { id: '4', title: 'Journal Entries', value: '12', icon: Book },
+  { id: '1', title: 'Current Streak', value: '7 days', icon: 'time' },
+  { id: '2', title: 'Longest Streak', value: '15 days', icon: 'trophy' },
+  { id: '3', title: 'Urges Overcome', value: '24', icon: 'shield-checkmark' },
+  { id: '4', title: 'Journal Entries', value: '12', icon: 'book' },
 ];
 
 export default function ProfileScreen() {
@@ -103,7 +103,7 @@ export default function ProfileScreen() {
 
         <View style={styles.streakContainer}>
           <View style={styles.streakContent}>
-            <TrendingUp color="#D4AF37" size={24} />
+            <Ionicons name="trending-up" color="#D4AF37" size={24} />
             <View style={styles.streakInfo}>
               <Text style={styles.streakTitle}>Recovery Timeline</Text>
               <Text style={styles.streakValue}>23 days remaining</Text>
@@ -120,7 +120,7 @@ export default function ProfileScreen() {
           <View style={styles.statsGrid}>
             {stats.map((stat) => (
               <View key={stat.id} style={styles.statCard}>
-                <stat.icon color="#D4AF37" size={24} />
+                <Ionicons name={stat.icon as any} color="#D4AF37" size={24} />
                 <Text style={styles.statValue}>{stat.value}</Text>
                 <Text style={styles.statTitle}>{stat.title}</Text>
               </View>
@@ -134,7 +134,7 @@ export default function ProfileScreen() {
         >
           <View style={styles.triggerHeader}>
             <View style={styles.triggerIconContainer}>
-              <Bell color="#D4AF37" size={24} />
+              <Ionicons name="notifications" color="#D4AF37" size={24} />
             </View>
             <View style={styles.triggerInfo}>
               <Text style={styles.triggerTitle}>Trigger Log</Text>
@@ -164,7 +164,7 @@ export default function ProfileScreen() {
               style={styles.updateGoalsButton}
               onPress={handleUpdateGoals}
             >
-              <Plus color="#D4AF37" size={20} />
+              <Ionicons name="add" color="#D4AF37" size={20} />
               <Text style={styles.updateGoalsText}>Update Goals</Text>
             </TouchableOpacity>
           </View>
@@ -172,9 +172,9 @@ export default function ProfileScreen() {
             {recoveryGoals.map((goal) => (
               <View key={goal.id} style={styles.goalCard}>
                 <View style={styles.goalHeader}>
-                  <Target color="#D4AF37" size={20} />
+                  <Ionicons name="radio-button-on" color="#D4AF37" size={20} />
                   <Text style={styles.goalText}>{goal.goal}</Text>
-                  <ChevronRight color="#E0E0E0" size={16} />
+                  <Ionicons name="chevron-forward" color="#E0E0E0" size={16} />
                 </View>
                 <View style={styles.goalProgress}>
                   <View style={styles.progressBarContainer}>
@@ -203,7 +203,8 @@ export default function ProfileScreen() {
                   !achievement.earned && styles.unearned
                 ]}
               >
-                <achievement.icon 
+                <Ionicons 
+                  name={achievement.icon as any} 
                   color={achievement.earned ? "#D4AF37" : "#666"} 
                   size={24} 
                 />
@@ -227,7 +228,7 @@ export default function ProfileScreen() {
         </View>
 
         <TouchableOpacity style={styles.journalButton} onPress={handleViewJournal}>
-          <Book color="#FFFFFF" size={20} style={styles.journalIcon} />
+          <Ionicons name="book" color="#FFFFFF" size={20} style={styles.journalIcon} />
           <Text style={styles.journalButtonText}>View Recovery Journal</Text>
         </TouchableOpacity>
       </ScrollView>

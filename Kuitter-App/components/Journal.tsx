@@ -12,7 +12,7 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import { X } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const MAX_CHARACTERS = 1000; // Set maximum character limit
 
@@ -63,7 +63,7 @@ export default function Journal({
           <View style={styles.journalContainer}>
             <View style={styles.header}>
               <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-                <X color="#FFFFFF" size={24} />
+                <Ionicons name="close" color="#FFFFFF" size={24} />
               </TouchableOpacity>
               <Text style={styles.date}>{today}</Text>
               <View style={styles.moodContainer}>

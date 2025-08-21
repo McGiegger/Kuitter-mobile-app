@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { MessageCircle, Heart, Users as UsersIcon, Shield, CircleUser as UserCircle2, Search, UserMinus, UserPlus } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import CreatePost from '@/components/CreatePost';
 import Comments, { Comment } from '@/components/Comments';
@@ -39,14 +39,14 @@ type Partner = {
   isPartner: boolean;
 };
 
-const partners = [
+const partners: Partner[] = [
   {
     id: '1',
     name: 'John D.',
     avatar: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=80&h=80&fit=crop',
     isAnonymous: false,
     streak: 15,
-    status: 'online',
+    status: 'online' as const,
     partnerCount: 3,
     isPartner: true
   },
@@ -55,7 +55,7 @@ const partners = [
     name: 'Anonymous Warrior',
     isAnonymous: true,
     streak: 30,
-    status: 'offline',
+    status: 'offline' as const,
     lastActive: '2h ago',
     partnerCount: 1,
     isPartner: false
@@ -277,7 +277,7 @@ export default function CommunityScreen() {
         {activeTab === 'partners' && (
           <View style={styles.partners}>
             <View style={styles.searchContainer}>
-              <Search color="#E0E0E0" size={20} style={styles.searchIcon} />
+              <Ionicons name="search" color="#E0E0E0" size={20} style={styles.searchIcon} />
               <TextInput
                 style={styles.searchInput}
                 placeholder="Search partners by username..."
@@ -295,7 +295,7 @@ export default function CommunityScreen() {
               >
                 {partner.isAnonymous ? (
                   <View style={styles.anonymousAvatar}>
-                    <UserCircle2 size={40} color="#D4AF37" />
+                    <Ionicons name="person-circle" size={40} color="#D4AF37" />
                   </View>
                 ) : (
                   <Image
@@ -332,9 +332,9 @@ export default function CommunityScreen() {
                   }}
                 >
                   {partner.isPartner ? (
-                    <UserMinus color="#FFFFFF" size={20} />
+                    <Ionicons name="person-remove" color="#FFFFFF" size={20} />
                   ) : (
-                    <UserPlus color="#FFFFFF" size={20} />
+                    <Ionicons name="person-add" color="#FFFFFF" size={20} />
                   )}
                 </TouchableOpacity>
               </TouchableOpacity>
@@ -373,10 +373,10 @@ export default function CommunityScreen() {
                     style={styles.actionButton}
                     onPress={() => handleLike(post.id)}
                   >
-                    <Heart 
+                    <Ionicons 
+                      name={post.hasLiked ? 'heart' : 'heart-outline'} 
                       size={20} 
-                      color={post.hasLiked ? '#D4AF37' : '#E0E0E0'} 
-                      fill={post.hasLiked ? '#D4AF37' : 'transparent'}
+                      color={post.hasLiked ? '#D4AF37' : '#E0E0E0'}
                     />
                     <Text style={styles.actionText}>{post.likes}</Text>
                   </TouchableOpacity>
@@ -384,7 +384,7 @@ export default function CommunityScreen() {
                     style={styles.actionButton}
                     onPress={() => handleShowComments(post)}
                   >
-                    <MessageCircle size={20} color="#E0E0E0" />
+                    <Ionicons name="chatbubble-outline" size={20} color="#E0E0E0" />
                     <Text style={styles.actionText}>{post.comments.length}</Text>
                   </TouchableOpacity>
                 </View>
@@ -408,7 +408,7 @@ export default function CommunityScreen() {
                 <View style={styles.groupInfo}>
                   <Text style={styles.groupName}>{group.name}</Text>
                   <View style={styles.groupMeta}>
-                    <UsersIcon size={16} color="#E0E0E0" />
+                    <Ionicons name="people" size={16} color="#E0E0E0" />
                     <Text style={styles.groupMembers}>{group.members} members</Text>
                   </View>
                 </View>

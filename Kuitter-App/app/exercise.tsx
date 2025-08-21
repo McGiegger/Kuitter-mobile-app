@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Dumbbell, Timer, CircleCheck as CheckCircle } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const exercises = [
@@ -49,7 +49,7 @@ export default function ExerciseScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Quick Exercise</Text>
       </View>
@@ -70,17 +70,17 @@ export default function ExerciseScreen() {
           >
             <View style={styles.exerciseHeader}>
               <View style={styles.exerciseIcon}>
-                <Dumbbell color="#D4AF37" size={24} />
+                <Ionicons name="barbell" color="#D4AF37" size={24} />
               </View>
               <View style={styles.exerciseInfo}>
                 <Text style={styles.exerciseName}>{exercise.name}</Text>
                 <View style={styles.durationContainer}>
-                  <Timer size={16} color="#E0E0E0" />
+                  <Ionicons name="time" size={16} color="#E0E0E0" />
                   <Text style={styles.duration}>{exercise.duration}</Text>
                 </View>
               </View>
               {exercise.completed && (
-                <CheckCircle color="#4CAF50" size={24} />
+                <Ionicons name="checkmark-circle" color="#4CAF50" size={24} />
               )}
             </View>
             <Text style={styles.exerciseDescription}>

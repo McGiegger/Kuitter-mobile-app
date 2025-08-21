@@ -11,7 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { X, Send } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const MAX_COMMENT_LENGTH = 500; // Set maximum character limit for comments
 
@@ -78,7 +78,7 @@ export default function Comments({ isVisible, onClose, comments, onAddComment }:
           <View style={styles.header}>
             <Text style={styles.headerTitle}>Comments</Text>
             <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-              <X color="#FFFFFF" size={24} />
+              <Ionicons name="close" color="#FFFFFF" size={24} />
             </TouchableOpacity>
           </View>
 
@@ -134,7 +134,7 @@ export default function Comments({ isVisible, onClose, comments, onAddComment }:
               onPress={handleSubmit}
               disabled={!newComment.trim()}
             >
-              <Send color="#FFFFFF" size={20} />
+              <Ionicons name="send" color="#FFFFFF" size={20} />
             </TouchableOpacity>
           </View>
         </View>

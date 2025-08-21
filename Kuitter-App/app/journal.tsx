@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Calendar } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 type JournalEntry = {
@@ -43,7 +43,7 @@ export default function JournalScreen() {
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Recovery Journal</Text>
       </View>
@@ -53,7 +53,7 @@ export default function JournalScreen() {
           <View key={index} style={styles.entryCard}>
             <View style={styles.entryHeader}>
               <View style={styles.dateContainer}>
-                <Calendar color="#D4AF37" size={20} />
+                <Ionicons name="calendar" color="#D4AF37" size={16} />
                 <Text style={styles.date}>{formatDate(entry.date)}</Text>
               </View>
               <View style={styles.moodContainer}>

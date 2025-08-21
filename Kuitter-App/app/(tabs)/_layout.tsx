@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, Brain, Users, User, Settings } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { View, Text, StyleSheet } from 'react-native';
 
 export default function TabLayout() {
@@ -22,7 +22,7 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color, size }) => (
-            <Home size={size} color={color} />
+            <Ionicons name="home" size={size} color={color} />
           ),
         }}
       />
@@ -32,7 +32,7 @@ export default function TabLayout() {
           title: 'Anchor',
           tabBarIcon: ({ color, size }) => (
             <View>
-              <Brain size={size} color={color} />
+              <Ionicons name="bulb" size={size} color={color} />
               {unreadAnchorMessages > 0 && (
                 <View style={styles.badge}>
                   <Text style={styles.badgeText}>{unreadAnchorMessages}</Text>
@@ -48,7 +48,7 @@ export default function TabLayout() {
           title: 'Community',
           tabBarIcon: ({ color, size }) => (
             <View>
-              <Users size={size} color={color} />
+              <Ionicons name="people" size={size} color={color} />
               {unreadCommunityUpdates > 0 && (
                 <View style={styles.badge}>
                   <Text style={styles.badgeText}>{unreadCommunityUpdates}</Text>
@@ -63,7 +63,7 @@ export default function TabLayout() {
         options={{
           title: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <User size={size} color={color} />
+            <Ionicons name="person" size={size} color={color} />
           ),
         }}
       />
@@ -72,7 +72,7 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color, size }) => (
-            <Settings size={size} color={color} />
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />

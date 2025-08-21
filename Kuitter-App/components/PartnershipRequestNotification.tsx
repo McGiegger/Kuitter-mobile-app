@@ -8,7 +8,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import { UserPlus, X } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 type PartnershipRequestNotificationProps = {
@@ -44,14 +44,14 @@ export default function PartnershipRequestNotification({
       <View style={styles.content}>
         <View style={styles.header}>
           <View style={styles.iconContainer}>
-            <UserPlus color="#D4AF37" size={20} />
+            <Ionicons name="person-add" color="#D4AF37" size={20} />
           </View>
           <View style={styles.headerText}>
             <Text style={styles.title}>New Partnership Request</Text>
             <Text style={styles.subtitle}>{partner.name} wants to connect</Text>
           </View>
           <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <X color="#FFFFFF" size={20} />
+            <Ionicons name="close" color="#FFFFFF" size={16} />
           </TouchableOpacity>
         </View>
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Book } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 
 const MAX_CHARACTERS = 1000;
@@ -31,11 +31,11 @@ export default function JournalEntryScreen() {
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <View style={styles.headerContent}>
           <View style={styles.iconContainer}>
-            <Book color="#D4AF37" size={24} />
+            <Ionicons name="book" color="#D4AF37" size={24} />
           </View>
           <View>
             <Text style={styles.headerTitle}>Journal Entry</Text>

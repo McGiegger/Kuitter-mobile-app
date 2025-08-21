@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Send, Sparkles, Brain, ChevronLeft, Heart } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 type Message = {
@@ -12,9 +12,9 @@ type Message = {
 };
 
 const suggestionPrompts = [
-  { icon: Brain, text: "I'm feeling triggered right now" },
-  { icon: Sparkles, text: "Help me build better habits" },
-  { icon: Heart, text: "How can I improve my relationships?" },
+  { icon: 'brain-outline' as const, text: "I'm feeling triggered right now" },
+  { icon: 'sparkles-outline' as const, text: "Help me build better habits" },
+  { icon: 'heart-outline' as const, text: "How can I improve my relationships?" },
 ];
 
 export default function AnchorScreen() {
@@ -75,11 +75,11 @@ export default function AnchorScreen() {
       >
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <ChevronLeft color="#FFFFFF" size={24} />
+            <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
           </TouchableOpacity>
           <View style={styles.headerContent}>
             <View style={styles.avatarContainer}>
-              <Sparkles color="#D4AF37" size={24} />
+              <Ionicons name="sparkles" color="#D4AF37" size={24} />
             </View>
             <View>
               <Text style={styles.headerTitle}>Anchor AI</Text>
@@ -122,7 +122,7 @@ export default function AnchorScreen() {
                   style={styles.suggestionButton}
                   onPress={() => handleSuggestion(prompt.text)}
                 >
-                  <prompt.icon color="#FFFFFF" size={16} />
+                  <Ionicons name={prompt.icon as any} color="#FFFFFF" size={16} />
                   <Text style={styles.suggestionText}>{prompt.text}</Text>
                 </TouchableOpacity>
               ))}
@@ -144,7 +144,7 @@ export default function AnchorScreen() {
               onPress={handleSend}
               disabled={!message.trim()}
             >
-              <Send color="#FFFFFF" size={20} />
+              <Ionicons name="send" color="#FFFFFF" size={20} />
             </TouchableOpacity>
           </View>
         </View>

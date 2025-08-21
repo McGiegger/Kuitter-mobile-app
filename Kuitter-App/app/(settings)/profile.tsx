@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Image, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, User, Mail, AtSign, Camera } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -48,7 +48,7 @@ export default function ProfileSettingsScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Profile Information</Text>
       </View>
@@ -65,17 +65,17 @@ export default function ProfileSettingsScreen() {
             />
           ) : (
             <View style={styles.placeholderImage}>
-              <User color="#D4AF37" size={40} />
+              <Ionicons name="person" color="#D4AF37" size={40} />
             </View>
           )}
           <View style={styles.cameraButton}>
-            <Camera color="#FFFFFF" size={20} />
+            <Ionicons name="camera" color="#FFFFFF" size={20} />
           </View>
         </TouchableOpacity>
 
         <View style={styles.section}>
           <View style={styles.inputContainer}>
-            <User color="#D4AF37" size={20} style={styles.inputIcon} />
+            <Ionicons name="person" color="#D4AF37" size={20} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Full Name"
@@ -86,7 +86,7 @@ export default function ProfileSettingsScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Mail color="#D4AF37" size={20} style={styles.inputIcon} />
+            <Ionicons name="mail" color="#D4AF37" size={20} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Email"
@@ -99,7 +99,7 @@ export default function ProfileSettingsScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <AtSign color="#D4AF37" size={20} style={styles.inputIcon} />
+            <Ionicons name="at" color="#D4AF37" size={20} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Username"

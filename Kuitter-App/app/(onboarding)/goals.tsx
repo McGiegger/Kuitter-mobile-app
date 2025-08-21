@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
-import { Check } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const goals = [
@@ -59,7 +59,7 @@ export default function GoalSettingScreen() {
                   styles.checkbox,
                   selectedGoals.includes(goal) && styles.checkedBox,
                 ]}>
-                  {selectedGoals.includes(goal) && <Check size={16} color="#FFFFFF" />}
+                  {selectedGoals.includes(goal) && <Ionicons name="checkmark" size={16} color="#FFFFFF" />}
                 </View>
                 <Text style={[
                   styles.goalText,

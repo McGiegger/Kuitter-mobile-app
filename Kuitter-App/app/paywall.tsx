@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Shield, Check, Sparkles, Brain, Heart, Lock } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Animated, { 
   useAnimatedStyle, 
   withSpring, 
@@ -13,22 +13,22 @@ import { usePaywall } from '@/hooks/usePaywall';
 
 const features = [
   {
-    icon: Brain,
+    icon: 'bulb' as const,
     title: "Advanced Recovery Tools",
     description: "Access our complete suite of recovery techniques and exercises",
   },
   {
-    icon: Shield,
+    icon: 'shield' as const,
     title: "Unlimited Partner Support",
     description: "Connect with multiple accountability partners for maximum support",
   },
   {
-    icon: Heart,
+    icon: 'heart' as const,
     title: "Premium Community Access",
     description: "Join exclusive groups and get priority community support",
   },
   {
-    icon: Sparkles,
+    icon: 'sparkles' as const,
     title: "Personalized Journey",
     description: "Get tailored recommendations based on your progress",
   },
@@ -104,7 +104,7 @@ export default function PaywallScreen() {
     >
       <ScrollView style={styles.content}>
         <View style={styles.header}>
-          <Lock color="#D4AF37" size={48} />
+          <Ionicons name="lock-closed" color="#D4AF37" size={20} />
           <Text style={styles.title}>Unlock Your Full Potential</Text>
           <Text style={styles.subtitle}>
             Your trial has ended. Continue your journey with premium access.
@@ -114,12 +114,12 @@ export default function PaywallScreen() {
         <View style={styles.features}>
           {features.map((feature, index) => (
             <View key={index} style={styles.featureItem}>
-              <feature.icon color="#D4AF37" size={24} />
+              <Ionicons name={feature.icon} color="#D4AF37" size={24} />
               <View style={styles.featureText}>
                 <Text style={styles.featureTitle}>{feature.title}</Text>
                 <Text style={styles.featureDescription}>{feature.description}</Text>
               </View>
-              <Check color="#4CAF50" size={20} />
+              <Ionicons name="checkmark" color="#4CAF50" size={16} />
             </View>
           ))}
         </View>
@@ -156,7 +156,7 @@ export default function PaywallScreen() {
         </View>
 
         <View style={styles.guaranteeContainer}>
-          <Shield color="#D4AF37" size={20} />
+          <Ionicons name="shield" color="#D4AF37" size={40} />
           <Text style={styles.guaranteeText}>
             30-day money-back guarantee. No questions asked.
           </Text>

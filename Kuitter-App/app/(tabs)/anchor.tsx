@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Send, Sparkles, Brain, Dumbbell, Heart } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 type Message = {
   id: string;
@@ -11,9 +11,9 @@ type Message = {
 };
 
 const suggestionPrompts = [
-  { icon: Brain, text: "I'm feeling triggered right now" },
-  { icon: Dumbbell, text: "Help me build better habits" },
-  { icon: Heart, text: "How can I improve my relationships?" },
+  { icon: 'bulb' as const, text: "I'm feeling triggered right now" },
+  { icon: 'fitness' as const, text: "Help me build better habits" },
+  { icon: 'heart' as const, text: "How can I improve my relationships?" },
 ];
 
 export default function AnchorScreen() {
@@ -75,7 +75,7 @@ export default function AnchorScreen() {
         >
           <View style={styles.header}>
             <View style={styles.avatarContainer}>
-              <Sparkles color="#D4AF37" size={24} />
+              <Ionicons name="sparkles" color="#D4AF37" size={24} />
             </View>
             <Text style={styles.headerTitle}>Anchor AI</Text>
             <Text style={styles.headerSubtitle}>Your 24/7 Support Companion</Text>
@@ -117,7 +117,7 @@ export default function AnchorScreen() {
                     style={styles.suggestionButton}
                     onPress={() => handleSuggestion(prompt.text)}
                   >
-                    <prompt.icon color="#FFFFFF" size={16} />
+                    <Ionicons name={prompt.icon} color="#FFFFFF" size={16} />
                     <Text style={styles.suggestionText}>{prompt.text}</Text>
                   </TouchableOpacity>
                 ))}
@@ -139,7 +139,7 @@ export default function AnchorScreen() {
                 onPress={handleSend}
                 disabled={!message.trim()}
               >
-                <Send color="#FFFFFF" size={20} />
+                <Ionicons name="send" color="#FFFFFF" size={20} />
               </TouchableOpacity>
             </View>
           </View>

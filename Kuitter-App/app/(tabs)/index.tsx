@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Wind, Timer, Bell, Dumbbell, Users, MessageCircle } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Animated, { useAnimatedStyle, withSpring, withSequence } from 'react-native-reanimated';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { router } from 'expo-router';
@@ -9,21 +9,21 @@ import { router } from 'expo-router';
 const quickActions = [
   { 
     id: '1', 
-    icon: Bell, 
+    icon: 'notifications' as const, 
     label: 'Log Trigger',
-    route: '/trigger-log',
+    route: '/trigger-log' as const,
   },
   { 
     id: '2', 
-    icon: Wind, 
+    icon: 'leaf' as const, 
     label: 'Breathing',
-    route: '/breathing',
+    route: '/breathing' as const,
   },
   { 
     id: '3', 
-    icon: Dumbbell, 
+    icon: 'fitness' as const, 
     label: 'Exercise',
-    route: '/exercise',
+    route: '/exercise' as const,
   },
 ];
 
@@ -114,7 +114,7 @@ export default function DashboardScreen() {
     }
   };
 
-  const handleQuickAction = (route: string) => {
+  const handleQuickAction = (route: '/trigger-log' | '/breathing' | '/exercise') => {
     router.push(route);
   };
 
@@ -138,7 +138,7 @@ export default function DashboardScreen() {
           >
             {() => (
               <View style={styles.streakContent}>
-                <Timer color="#D4AF37" size={32} />
+                <Ionicons name="timer" color="#D4AF37" size={32} />
                 <Text style={styles.streakCount}>{currentStreak} Days</Text>
                 <Text style={styles.streakBest}>Best: {bestStreak} days</Text>
               </View>
@@ -148,7 +148,7 @@ export default function DashboardScreen() {
 
         <TouchableOpacity style={styles.partnerCard} onPress={handleViewPartners}>
           <View style={styles.partnerHeader}>
-            <Users color="#D4AF37" size={24} />
+            <Ionicons name="people" color="#D4AF37" size={24} />
             <Text style={styles.partnerTitle}>Accountability Partners</Text>
           </View>
           <View style={styles.partnerContent}>
@@ -177,7 +177,7 @@ export default function DashboardScreen() {
                 </Text>
               </View>
               <View style={styles.messageIcon}>
-                <MessageCircle color="#FFFFFF" size={24} />
+                <Ionicons name="chatbubble" color="#FFFFFF" size={24} />
                 {totalUnreadMessages > 0 && (
                   <View style={styles.messageBadge}>
                     <Text style={styles.messageBadgeText}>{totalUnreadMessages}</Text>
@@ -243,7 +243,7 @@ export default function DashboardScreen() {
                 style={styles.actionButton}
                 onPress={() => handleQuickAction(action.route)}
               >
-                <action.icon color="#FFFFFF" size={20} />
+                <Ionicons name={action.icon} color="#FFFFFF" size={20} />
                 <Text style={styles.actionText}>{action.label}</Text>
               </TouchableOpacity>
             ))}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, MessageCircle, UserMinus, CircleUser as UserCircle2 } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import Dialog from '@/components/Dialog';
 
@@ -84,7 +84,7 @@ export default function PartnersScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Your Partners</Text>
       </View>
@@ -98,7 +98,7 @@ export default function PartnersScreen() {
             >
               {partner.isAnonymous ? (
                 <View style={styles.anonymousAvatar}>
-                  <UserCircle2 size={40} color="#D4AF37" />
+                  <Ionicons name="person-circle" size={40} color="#D4AF37" />
                 </View>
               ) : (
                 <Image
@@ -139,13 +139,13 @@ export default function PartnersScreen() {
                 style={styles.chatButton}
                 onPress={() => handleChat(partner.id)}
               >
-                <MessageCircle color="#FFFFFF" size={20} />
+                <Ionicons name="chatbubble" color="#FFFFFF" size={20} />
               </TouchableOpacity>
               <TouchableOpacity 
                 style={styles.removeButton}
                 onPress={() => handleRemovePartner(partner.id)}
               >
-                <UserMinus color="#FFFFFF" size={20} />
+                <Ionicons name="person-remove" color="#FF3B30" size={20} />
               </TouchableOpacity>
             </View>
           </View>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Switch } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Bell, Clock, MapPin, TriangleAlert as AlertTriangle, Shield } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 const triggers = [
@@ -52,7 +52,7 @@ export default function TriggerLogScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Log Trigger</Text>
       </View>
@@ -60,7 +60,7 @@ export default function TriggerLogScreen() {
       <ScrollView style={styles.content}>
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Bell color="#D4AF37" size={24} />
+            <Ionicons name="notifications" color="#D4AF37" size={24} />
             <Text style={styles.sectionTitle}>What triggered you?</Text>
           </View>
           <View style={styles.triggerGrid}>
@@ -84,7 +84,7 @@ export default function TriggerLogScreen() {
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <MapPin color="#D4AF37" size={24} />
+            <Ionicons name="time" color="#E0E0E0" size={16} />
             <Text style={styles.sectionTitle}>Where were you?</Text>
           </View>
           <View style={styles.locationContainer}>
@@ -108,7 +108,7 @@ export default function TriggerLogScreen() {
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <Shield color="#D4AF37" size={24} />
+            <Ionicons name="shield" color="#D4AF37" size={24} />
             <Text style={styles.sectionTitle}>Did you overcome this trigger?</Text>
           </View>
           <View style={styles.outcomeContainer}>
@@ -125,8 +125,8 @@ export default function TriggerLogScreen() {
             </View>
             <Text style={styles.outcomeDescription}>
               {overcame 
-                ? "Great job staying strong! What strategies helped you overcome this trigger? 👏"
-                : "It's okay. Every setback is a learning opportunity. What could you do differently next time? 🌱"
+                ? "Great job staying strong! What strategies helped you overcome this trigger? "
+                : "It's okay. Every setback is a learning opportunity. What could you do differently next time? "
               }
             </Text>
           </View>
@@ -134,7 +134,7 @@ export default function TriggerLogScreen() {
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
-            <AlertTriangle color="#D4AF37" size={24} />
+            <Ionicons name="warning" color="#FF3B30" size={16} />
             <Text style={styles.sectionTitle}>Additional Notes</Text>
           </View>
           <TextInput

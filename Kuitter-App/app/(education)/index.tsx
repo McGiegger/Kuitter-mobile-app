@@ -10,7 +10,7 @@ import Animated, {
   withTiming,
   Easing
 } from 'react-native-reanimated';
-import { Brain, Users, Clock, Eye, Sprout } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
@@ -18,42 +18,42 @@ const { width } = Dimensions.get('window');
 const slides = [
   {
     id: 1,
-    icon: Brain,
+    icon: 'bulb-outline' as const,
     heading: "Rewires Your Brain",
     content: "Pornography hijacks your brain's natural reward system, creating artificial neural pathways that can affect motivation and pleasure responses.",
     color: '#4A90E2',
   },
   {
     id: 2,
-    icon: Users,
+    icon: 'people-outline' as const,
     heading: "Affects Real Connections",
     content: "Regular porn use can impact your ability to form and maintain meaningful relationships, affecting intimacy and emotional connections.",
     color: '#E24A67',
   },
   {
     id: 3,
-    icon: Clock,
+    icon: 'time-outline' as const,
     heading: "Drains Your Energy",
     content: "Excessive use can lead to decreased productivity, poor concentration, and reduced motivation in daily activities.",
     color: '#50C878',
   },
   {
     id: 4,
-    icon: Eye,
+    icon: 'eye-outline' as const,
     heading: "Distorts Perceptions",
     content: "Continuous exposure can alter your self-image and create unrealistic expectations about relationships and intimacy.",
     color: '#9B59B6',
   },
   {
     id: 5,
-    icon: Sprout,
+    icon: 'leaf-outline' as const,
     heading: "Your Brain Can Heal",
     content: "Through neuroplasticity, your brain can form new, healthy neural pathways. Recovery is possible with commitment and support.",
     color: '#F1C40F',
   },
 ];
 
-function AnimatedIcon({ Icon, color }) {
+function AnimatedIcon({ iconName, color }: { iconName: string; color: string }) {
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
@@ -73,7 +73,7 @@ function AnimatedIcon({ Icon, color }) {
 
   return (
     <Animated.View style={[styles.iconContainer, { backgroundColor: color }, animatedStyle]}>
-      <Icon color="#FFFFFF" size={48} />
+      <Ionicons name={iconName as any} color="#FFFFFF" size={48} />
     </Animated.View>
   );
 }
@@ -87,7 +87,7 @@ export default function EducationScreen() {
     } else {
       try {
         await AsyncStorage.setItem('hasCompletedEducation', 'true');
-        router.push('/onboarding/goals');
+        router.replace('/(tabs)/profile');
       } catch (error) {
         console.error('Error saving education completion status:', error);
       }
@@ -100,7 +100,7 @@ export default function EducationScreen() {
       style={styles.container}
     >
       <View style={styles.content}>
-        <AnimatedIcon Icon={slides[currentIndex].icon} color={slides[currentIndex].color} />
+        <AnimatedIcon iconName={slides[currentIndex].icon} color={slides[currentIndex].color} />
         
         <Text style={styles.heading}>{slides[currentIndex].heading}</Text>
         <Text style={styles.description}>{slides[currentIndex].content}</Text>

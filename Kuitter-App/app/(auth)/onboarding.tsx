@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Slider } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ChevronRight, ChevronLeft } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const questions = [
   {
@@ -36,17 +36,15 @@ export default function OnboardingScreen() {
     const question = questions[currentQuestion];
     if (!question) return;
     
-    if (question.type === 'slider') {
+    if (question.multiple) {
       setAnswers(prev => ({
         ...prev,
-        [currentQuestion]: answer,
+        [currentQuestion]: [...((prev[currentQuestion] as string[]) || []), answer as string],
       }));
     } else {
       setAnswers(prev => ({
         ...prev,
-        [currentQuestion]: question.multiple 
-          ? [...((prev[currentQuestion] as string[]) || []), answer as string]
-          : [answer as string],
+        [currentQuestion]: [answer as string],
       }));
     }
   };
@@ -95,7 +93,7 @@ export default function OnboardingScreen() {
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.progress}>
           Question {currentQuestion + 1} of {questions.length}
@@ -109,50 +107,27 @@ export default function OnboardingScreen() {
         <Text style={styles.question}>{question.question}</Text>
 
         <View style={styles.optionsContainer}>
-          {question.type === 'slider' ? (
-            <View style={styles.sliderContainer}>
-              <Slider
-                style={styles.slider}
-                minimumValue={question.min}
-                maximumValue={question.max}
-                step={question.step}
-                value={answers[currentQuestion] as number || 5}
-                onValueChange={handleAnswer}
-                minimumTrackTintColor="#D4AF37"
-                maximumTrackTintColor="rgba(255, 255, 255, 0.1)"
-                thumbTintColor="#D4AF37"
-              />
-              <View style={styles.sliderLabels}>
-                <Text style={styles.sliderLabel}>Not Comfortable</Text>
-                <Text style={styles.sliderValue}>
-                  {answers[currentQuestion] !== undefined ? answers[currentQuestion] : 5}
+          {question.options?.map((option) => {
+            const isSelected = Array.isArray(answers[currentQuestion]) && 
+              (answers[currentQuestion] as string[])?.includes(option);
+            return (
+              <TouchableOpacity
+                key={option}
+                style={[
+                  styles.option,
+                  isSelected && styles.selectedOption,
+                ]}
+                onPress={() => handleAnswer(option)}
+              >
+                <Text style={[
+                  styles.optionText,
+                  isSelected && styles.selectedOptionText,
+                ]}>
+                  {option}
                 </Text>
-                <Text style={styles.sliderLabel}>Very Comfortable</Text>
-              </View>
-            </View>
-          ) : (
-            question.options?.map((option) => {
-              const isSelected = Array.isArray(answers[currentQuestion]) && 
-                (answers[currentQuestion] as string[])?.includes(option);
-              return (
-                <TouchableOpacity
-                  key={option}
-                  style={[
-                    styles.option,
-                    isSelected && styles.selectedOption,
-                  ]}
-                  onPress={() => handleAnswer(option)}
-                >
-                  <Text style={[
-                    styles.optionText,
-                    isSelected && styles.selectedOptionText,
-                  ]}>
-                    {option}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })
-          )}
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </ScrollView>
 
@@ -165,7 +140,7 @@ export default function OnboardingScreen() {
           <Text style={styles.nextButtonText}>
             {currentQuestion === questions.length - 1 ? 'Complete' : 'Next'}
           </Text>
-          <ChevronRight color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-forward" color="#FFFFFF" size={24} />
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -221,28 +196,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectedOptionText: {
-    fontWeight: 'bold',
-  },
-  sliderContainer: {
-    marginTop: 20,
-  },
-  slider: {
-    width: '100%',
-    height: 40,
-  },
-  sliderLabels: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  sliderLabel: {
-    color: '#E0E0E0',
-    fontSize: 14,
-  },
-  sliderValue: {
-    color: '#D4AF37',
-    fontSize: 18,
     fontWeight: 'bold',
   },
   footer: {

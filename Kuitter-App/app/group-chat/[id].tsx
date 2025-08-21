@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, router } from 'expo-router';
-import { ChevronLeft, Send, Heart, MessageCircle, Share2 } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Comments, { Comment } from '@/components/Comments';
 
 type Message = {
@@ -171,7 +171,7 @@ export default function GroupChatScreen() {
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Newcomers Circle</Text>
         <Text style={styles.headerSubtitle}>128 members</Text>
@@ -209,10 +209,10 @@ export default function GroupChatScreen() {
                   style={styles.actionButton}
                   onPress={() => toggleLike(message.id)}
                 >
-                  <Heart 
+                  <Ionicons 
+                    name={message.reactions.hasLiked ? 'heart' : 'heart-outline'} 
                     size={16} 
-                    color={message.reactions.hasLiked ? '#D4AF37' : '#E0E0E0'} 
-                    fill={message.reactions.hasLiked ? '#D4AF37' : 'transparent'}
+                    color={message.reactions.hasLiked ? '#D4AF37' : '#E0E0E0'}
                   />
                   <Text style={styles.actionText}>{message.reactions.likes}</Text>
                 </TouchableOpacity>
@@ -220,11 +220,11 @@ export default function GroupChatScreen() {
                   style={styles.actionButton}
                   onPress={() => handleShowComments(message)}
                 >
-                  <MessageCircle size={16} color="#E0E0E0" />
+                  <Ionicons name="chatbubble-outline" size={16} color="#E0E0E0" />
                   <Text style={styles.actionText}>{message.comments.length}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.actionButton}>
-                  <Share2 size={16} color="#E0E0E0" />
+                  <Ionicons name="share-outline" size={16} color="#E0E0E0" />
                 </TouchableOpacity>
               </View>
             </View>
@@ -246,7 +246,7 @@ export default function GroupChatScreen() {
           onPress={handleSend}
           disabled={!newMessage.trim()}
         >
-          <Send color="#FFFFFF" size={20} />
+          <Ionicons name="send" color="#FFFFFF" size={20} />
         </TouchableOpacity>
       </View>
 

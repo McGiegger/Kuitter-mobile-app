@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, router } from 'expo-router';
-import { ChevronLeft, Send, CircleUser as UserCircle2, UserPlus } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Dialog from '@/components/Dialog';
 
 type Message = {
@@ -54,7 +54,7 @@ export default function PartnerChatScreen() {
   const handleSend = () => {
     if (!newMessage.trim()) return;
 
-    const message = {
+    const message: Message = {
       id: Date.now().toString(),
       content: newMessage,
       sender: 'user',
@@ -65,7 +65,7 @@ export default function PartnerChatScreen() {
     setNewMessage('');
 
     setTimeout(() => {
-      const response = {
+      const response: Message = {
         id: (Date.now() + 1).toString(),
         content: "That's great to hear! Keep going strong. I'm here if you need support.",
         sender: 'partner',
@@ -91,12 +91,12 @@ export default function PartnerChatScreen() {
     >
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <View style={styles.headerContent}>
           {partner.isAnonymous ? (
             <View style={styles.anonymousAvatar}>
-              <UserCircle2 size={40} color="#D4AF37" />
+              <Ionicons name="person-circle" size={40} color="#D4AF37" />
             </View>
           ) : (
             <Image
@@ -153,7 +153,7 @@ export default function PartnerChatScreen() {
           onPress={handleSend}
           disabled={!newMessage.trim()}
         >
-          <Send color="#FFFFFF" size={20} />
+          <Ionicons name="send" color="#FFFFFF" size={20} />
         </TouchableOpacity>
       </View>
 

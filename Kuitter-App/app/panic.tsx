@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TriangleAlert as AlertTriangle, MessageSquare, Brain, Book, ArrowLeft } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import Animated, {
   useAnimatedStyle,
@@ -71,11 +71,11 @@ export default function PanicScreen() {
               style={styles.backButton}
               onPress={() => router.back()}
             >
-              <ArrowLeft color="#FFFFFF" size={20} />
+              <Ionicons name="arrow-back" color="#FFFFFF" size={24} />
             </TouchableOpacity>
 
             <Animated.View style={[styles.warningContainer, warningStyle]}>
-              <AlertTriangle color="#FF3B30" size={48} />
+              <Ionicons name="warning" color="#FF3B30" size={48} />
               <Text style={styles.warningTitle}>STOP!</Text>
             </Animated.View>
 
@@ -116,7 +116,7 @@ export default function PanicScreen() {
                 style={styles.actionButton}
                 onPress={() => router.push('/partner-chat/1')}
               >
-                <MessageSquare color="#FFFFFF" size={16} />
+                <Ionicons name="chatbox" color="#FFFFFF" size={20} />
                 <Text style={styles.actionButtonText}>Msg Partner</Text>
               </TouchableOpacity>
 
@@ -124,7 +124,7 @@ export default function PanicScreen() {
                 style={styles.actionButton}
                 onPress={handleBreathing}
               >
-                <Brain color="#FFFFFF" size={16} />
+                <Ionicons name="bulb" color="#FFFFFF" size={20} />
                 <Text style={styles.actionButtonText}>Breathe</Text>
               </TouchableOpacity>
 
@@ -132,7 +132,7 @@ export default function PanicScreen() {
                 style={styles.actionButton}
                 onPress={() => router.push('/journal')}
               >
-                <Book color="#FFFFFF" size={16} />
+                <Ionicons name="book" color="#FFFFFF" size={20} />
                 <Text style={styles.actionButtonText}>Journal</Text>
               </TouchableOpacity>
             </View>

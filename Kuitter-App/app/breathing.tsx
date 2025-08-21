@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Wind } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import Animated, {
   useAnimatedStyle,
@@ -101,7 +101,7 @@ export default function BreathingScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Breathing Exercise</Text>
       </View>
@@ -114,7 +114,7 @@ export default function BreathingScreen() {
               <Animated.View style={[styles.breathCircle, circleScale]} />
               <Animated.View style={[styles.glowCircle, glowOpacity]} />
               <View style={styles.iconContainer}>
-                <Wind color="#FFFFFF" size={48} />
+                <Ionicons name="leaf" color="#FFFFFF" size={48} />
               </View>
             </View>
             <Text style={styles.instructions}>{getInstructions()}</Text>
@@ -133,7 +133,7 @@ export default function BreathingScreen() {
         ) : (
           <View style={styles.startContainer}>
             <View style={styles.iconBackground}>
-              <Wind color="#D4AF37" size={64} />
+              <Ionicons name="leaf" color="#D4AF37" size={64} />
             </View>
             <Text style={styles.description}>
               Take a moment to breathe and center yourself. This exercise uses the 4-4-4 technique:

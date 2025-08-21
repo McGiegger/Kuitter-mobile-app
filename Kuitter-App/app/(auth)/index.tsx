@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Mail } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Svg, { Path, G } from 'react-native-svg';
 
 const SequentialTypeWriter = () => {
@@ -172,7 +172,7 @@ export default function AuthScreen() {
             style={styles.button}
             onPress={() => router.push('/auth')}
           >
-            <Mail color="#FFFFFF" size={24} />
+            <Ionicons name="mail" color="#FFFFFF" size={24} />
             <Text style={styles.buttonText}>Continue with Email</Text>
           </TouchableOpacity>
 

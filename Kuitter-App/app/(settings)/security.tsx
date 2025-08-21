@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Lock, Eye, EyeOff, CircleAlert as AlertCircle } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 export default function SecuritySettingsScreen() {
@@ -36,7 +36,7 @@ export default function SecuritySettingsScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Security Settings</Text>
       </View>
@@ -46,7 +46,7 @@ export default function SecuritySettingsScreen() {
 
         <View style={styles.section}>
           <View style={styles.inputContainer}>
-            <Lock color="#D4AF37" size={20} style={styles.inputIcon} />
+            <Ionicons name="lock-closed" color="#D4AF37" size={20} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Current Password"
@@ -60,15 +60,15 @@ export default function SecuritySettingsScreen() {
               onPress={() => setShowPasswords(!showPasswords)}
             >
               {showPasswords ? (
-                <EyeOff color="#666" size={20} />
+                <Ionicons name="eye-off" color="#666" size={20} />
               ) : (
-                <Eye color="#666" size={20} />
+                <Ionicons name="eye" color="#666" size={20} />
               )}
             </TouchableOpacity>
           </View>
 
           <View style={styles.inputContainer}>
-            <Lock color="#D4AF37" size={20} style={styles.inputIcon} />
+            <Ionicons name="lock-closed" color="#D4AF37" size={20} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="New Password"
@@ -80,7 +80,7 @@ export default function SecuritySettingsScreen() {
           </View>
 
           <View style={styles.inputContainer}>
-            <Lock color="#D4AF37" size={20} style={styles.inputIcon} />
+            <Ionicons name="lock-closed" color="#D4AF37" size={20} style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Confirm New Password"
@@ -93,7 +93,7 @@ export default function SecuritySettingsScreen() {
 
           {error && (
             <View style={styles.errorContainer}>
-              <AlertCircle color="#FF3B30" size={16} />
+              <Ionicons name="alert-circle" color="#FF3B30" size={16} />
               <Text style={styles.errorText}>{error}</Text>
             </View>
           )}

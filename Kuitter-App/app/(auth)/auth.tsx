@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ChevronLeft, Mail, Lock, Eye, EyeOff, CircleAlert as AlertCircle } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 type Mode = 'signin' | 'signup';
 type ValidationError = {
@@ -87,7 +87,7 @@ export default function AuthScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>
           {mode === 'signin' ? 'Welcome Back' : 'Create Account'}
@@ -102,7 +102,7 @@ export default function AuthScreen() {
 
       <View style={styles.form}>
         <View style={styles.inputContainer}>
-          <Mail color="#D4AF37" size={20} style={styles.inputIcon} />
+          <Ionicons name="mail" color="#D4AF37" size={20} style={styles.inputIcon} />
           <TextInput
             style={styles.input}
             placeholder="Email address"
@@ -116,13 +116,13 @@ export default function AuthScreen() {
         </View>
         {errors.email && (
           <View style={styles.errorContainer}>
-            <AlertCircle color="#FF3B30" size={16} />
+            <Ionicons name="warning" color="#FF3B30" size={16} />
             <Text style={styles.errorText}>{errors.email}</Text>
           </View>
         )}
 
         <View style={styles.inputContainer}>
-          <Lock color="#D4AF37" size={20} style={styles.inputIcon} />
+          <Ionicons name="lock-closed" color="#D4AF37" size={20} style={styles.inputIcon} />
           <TextInput
             style={styles.input}
             placeholder="Password"
@@ -137,15 +137,15 @@ export default function AuthScreen() {
             onPress={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
-              <EyeOff color="#666" size={20} />
+              <Ionicons name="eye-off" color="#666" size={20} />
             ) : (
-              <Eye color="#666" size={20} />
+              <Ionicons name="eye" color="#666" size={20} />
             )}
           </TouchableOpacity>
         </View>
         {errors.password && (
           <View style={styles.errorContainer}>
-            <AlertCircle color="#FF3B30" size={16} />
+            <Ionicons name="warning" color="#FF3B30" size={16} />
             <Text style={styles.errorText}>{errors.password}</Text>
           </View>
         )}
@@ -153,7 +153,7 @@ export default function AuthScreen() {
         {mode === 'signup' && (
           <>
             <View style={styles.inputContainer}>
-              <Lock color="#D4AF37" size={20} style={styles.inputIcon} />
+              <Ionicons name="lock-closed" color="#D4AF37" size={20} style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Confirm password"
@@ -166,7 +166,7 @@ export default function AuthScreen() {
             </View>
             {errors.confirmPassword && (
               <View style={styles.errorContainer}>
-                <AlertCircle color="#FF3B30" size={16} />
+                <Ionicons name="warning" color="#FF3B30" size={16} />
                 <Text style={styles.errorText}>{errors.confirmPassword}</Text>
               </View>
             )}

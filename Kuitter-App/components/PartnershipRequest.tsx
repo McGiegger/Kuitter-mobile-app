@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { UserPlus, X } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 type PartnershipRequestProps = {
   visible: boolean;
@@ -47,12 +47,12 @@ export default function PartnershipRequest({
             style={styles.closeButton}
             onPress={onClose}
           >
-            <X color="#FFFFFF" size={24} />
+            <Ionicons name="close" color="#FFFFFF" size={20} />
           </TouchableOpacity>
 
           <View style={styles.content}>
             <View style={styles.iconContainer}>
-              <UserPlus color="#D4AF37" size={32} />
+              <Ionicons name="person-add" color="#D4AF37" size={32} />
             </View>
 
             <Text style={styles.title}>Partnership Request</Text>

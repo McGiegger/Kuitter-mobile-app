@@ -1,16 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { 
-  Bell, 
-  Lock, 
-  CircleUser as UserCircle, 
-  Shield, 
-  Moon, 
-  Trash2, 
-  ChevronRight, 
-  LogOut,
-  Sun,
-} from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import Dialog from '@/components/Dialog';
@@ -62,7 +52,7 @@ export default function SettingsScreen() {
 
   return (
     <LinearGradient
-      colors={colors.background}
+      colors={colors.background as any}
       style={styles.container}
     >
       <ScrollView style={styles.content}>
@@ -79,13 +69,13 @@ export default function SettingsScreen() {
               onPress={() => router.push('/(settings)/profile')}
             >
               <View style={[styles.optionIcon, { backgroundColor: colors.surfaceActive }]}>
-                <UserCircle color={colors.primary} size={24} />
+                <Ionicons name="person-circle" color={colors.primary} size={24} />
               </View>
               <View style={styles.optionContent}>
                 <Text style={[styles.optionTitle, { color: colors.text }]}>Profile Information</Text>
                 <Text style={[styles.optionDescription, { color: colors.textSecondary }]}>Manage your personal details</Text>
               </View>
-              <ChevronRight color={colors.textSecondary} size={20} />
+              <Ionicons name="chevron-forward" color={colors.textSecondary} size={20} />
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -93,13 +83,13 @@ export default function SettingsScreen() {
               onPress={() => router.push('/(settings)/security')}
             >
               <View style={[styles.optionIcon, { backgroundColor: colors.surfaceActive }]}>
-                <Lock color={colors.primary} size={24} />
+                <Ionicons name="lock-closed" color={colors.primary} size={24} />
               </View>
               <View style={styles.optionContent}>
                 <Text style={[styles.optionTitle, { color: colors.text }]}>Security</Text>
                 <Text style={[styles.optionDescription, { color: colors.textSecondary }]}>Password and authentication</Text>
               </View>
-              <ChevronRight color={colors.textSecondary} size={20} />
+              <Ionicons name="chevron-forward" color={colors.textSecondary} size={20} />
             </TouchableOpacity>
           </View>
         </View>
@@ -109,7 +99,7 @@ export default function SettingsScreen() {
           <View style={[styles.card, { backgroundColor: colors.surface }]}>
             <View style={styles.option}>
               <View style={[styles.optionIcon, { backgroundColor: colors.surfaceActive }]}>
-                <Bell color={colors.primary} size={24} />
+                <Ionicons name="notifications" color={colors.primary} size={24} />
               </View>
               <View style={styles.optionContent}>
                 <Text style={[styles.optionTitle, { color: colors.text }]}>Notifications</Text>
@@ -128,9 +118,9 @@ export default function SettingsScreen() {
             <View style={styles.option}>
               <View style={[styles.optionIcon, { backgroundColor: colors.surfaceActive }]}>
                 {isDark ? (
-                  <Sun color={colors.primary} size={24} />
+                  <Ionicons name="sunny" color={colors.primary} size={24} />
                 ) : (
-                  <Moon color={colors.primary} size={24} />
+                  <Ionicons name="moon" color={colors.primary} size={24} />
                 )}
               </View>
               <View style={styles.optionContent}>
@@ -159,13 +149,13 @@ export default function SettingsScreen() {
               onPress={handlePrivacySettings}
             >
               <View style={[styles.optionIcon, { backgroundColor: colors.surfaceActive }]}>
-                <Shield color={colors.primary} size={24} />
+                <Ionicons name="shield" color={colors.primary} size={24} />
               </View>
               <View style={styles.optionContent}>
                 <Text style={[styles.optionTitle, { color: colors.text }]}>Privacy Settings</Text>
                 <Text style={[styles.optionDescription, { color: colors.textSecondary }]}>Control your data and visibility</Text>
               </View>
-              <ChevronRight color={colors.textSecondary} size={20} />
+              <Ionicons name="chevron-forward" color={colors.textSecondary} size={20} />
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -173,13 +163,13 @@ export default function SettingsScreen() {
               onPress={handleDeleteAccount}
             >
               <View style={[styles.optionIcon, { backgroundColor: 'rgba(207, 48, 48, 0.1)' }]}>
-                <Trash2 color="#CF3030" size={24} />
+                <Ionicons name="trash" color="#CF3030" size={24} />
               </View>
               <View style={styles.optionContent}>
                 <Text style={[styles.optionTitle, styles.dangerText]}>Delete Account</Text>
                 <Text style={[styles.optionDescription, { color: colors.textSecondary }]}>Permanently remove your data</Text>
               </View>
-              <ChevronRight color={colors.textSecondary} size={20} />
+              <Ionicons name="chevron-forward" color={colors.textSecondary} size={20} />
             </TouchableOpacity>
           </View>
         </View>
@@ -188,7 +178,7 @@ export default function SettingsScreen() {
           style={styles.logoutButton}
           onPress={handleLogout}
         >
-          <LogOut color="#FFFFFF" size={20} />
+          <Ionicons name="log-out" color="#FFFFFF" size={20} />
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
       </ScrollView>

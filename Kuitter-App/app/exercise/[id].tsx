@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeft, Timer, Dumbbell } from 'lucide-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState, useEffect } from 'react';
 import Animated, { 
@@ -128,7 +128,7 @@ export default function ExerciseDetailScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <ChevronLeft color="#FFFFFF" size={24} />
+          <Ionicons name="chevron-back" color="#FFFFFF" size={24} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{exercise.name}</Text>
       </View>
@@ -136,10 +136,10 @@ export default function ExerciseDetailScreen() {
       <ScrollView style={styles.content}>
         <View style={styles.timerSection}>
           <Animated.View style={[styles.iconContainer, animatedStyle]}>
-            <Dumbbell color="#D4AF37" size={48} />
+            <Ionicons name="barbell" color="#D4AF37" size={48} />
           </Animated.View>
           <View style={styles.timerInfo}>
-            <Timer color="#D4AF37" size={24} />
+            <Ionicons name="time" color="#D4AF37" size={24} />
             <Text style={styles.duration}>{exercise.duration}</Text>
           </View>
         </View>
@@ -170,7 +170,7 @@ export default function ExerciseDetailScreen() {
           <View style={styles.benefitsGrid}>
             {exercise.benefits.map((benefit, index) => (
               <View key={index} style={styles.benefitItem}>
-                <Dumbbell color="#D4AF37" size={20} />
+                <Ionicons name="barbell" color="#D4AF37" size={20} />
                 <Text style={styles.benefitText}>{benefit}</Text>
               </View>
             ))}
