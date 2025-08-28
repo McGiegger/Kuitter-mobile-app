@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from '@/context/AuthContext'; // central session
+import supabaseClient from '../../supabaseClient';
 
 const questions = [
   {
@@ -30,7 +32,14 @@ const questions = [
 
 export default function OnboardingScreen() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string[] | number>>({});
+  const [answers, setAnswers] = useState<Record<number, string[] | string>>({});
+  const { session, loading } = useAuth(); // pull from context
+
+  useEffect(() => {
+    if (!loading && !session) {
+      router.replace("/(auth)/auth");
+    }
+  }, [session, loading]);
 
   const handleAnswer = (answer: string | number) => {
     const question = questions[currentQuestion];
@@ -44,19 +53,50 @@ export default function OnboardingScreen() {
     } else {
       setAnswers(prev => ({
         ...prev,
-        [currentQuestion]: [answer as string],
+        [currentQuestion]: answer as string,
       }));
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      router.push('/(tabs)');
-    }
-  };
 
+            try {
+
+            const { error } = await submitAnswers(answers);
+
+            if (error) {
+              console.error("Error saving answers:", error);
+              return;
+            }
+
+            // check if onboarding is fully complete
+            const { data, error: fetchError } = await supabaseClient
+            .from("recovery_goals")
+            .select("*")
+            .eq("user_id", session.user.id)
+            .maybeSingle();
+
+          if (fetchError) {
+            console.error("Error checking recovery_goals:", fetchError);
+            return;
+          }
+
+          if (data) {
+            // user now has recovery goals → move them to main app
+            router.replace("/(tabs)");
+          } else {
+            // If they still miss recovery goals → continue onboarding flow
+            router.replace("/(onboarding)/education");
+          }
+
+          } catch (error) {
+            console.error("Unexpected error in handleNext:", error);
+          }
+    }
+  }
   const handleBack = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion(prev => prev - 1);
@@ -68,7 +108,7 @@ export default function OnboardingScreen() {
   const isAnswered = answers[currentQuestion] !== undefined && 
     (Array.isArray(answers[currentQuestion]) 
       ? (answers[currentQuestion] as string[]).length > 0 
-      : true);
+      : answers[currentQuestion] !== '');
   
   const question = questions[currentQuestion];
 
@@ -85,6 +125,35 @@ export default function OnboardingScreen() {
       </LinearGradient>
     );
   }
+
+  const submitAnswers = async function submitAnswers(answers: Record<number, string[] | string>) {
+    try {
+
+      const token = session?.access_token;
+  
+
+    const res = await fetch(`${process.env.EXPO_PUBLIC_API_URL}/functions/v1/set-onboarding-answers`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ answers }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to submit answers: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return { error: data.error };
+
+    } catch (error) {
+      console.error("Error saving answers:", error);
+      return { error: "Failed to save answers" };
+    }
+  }
+
 
   return (
     <LinearGradient
@@ -108,8 +177,9 @@ export default function OnboardingScreen() {
 
         <View style={styles.optionsContainer}>
           {question.options?.map((option) => {
-            const isSelected = Array.isArray(answers[currentQuestion]) && 
-              (answers[currentQuestion] as string[])?.includes(option);
+            const isSelected = question.multiple 
+              ? Array.isArray(answers[currentQuestion]) && (answers[currentQuestion] as string[])?.includes(option)
+              : answers[currentQuestion] === option;
             return (
               <TouchableOpacity
                 key={option}

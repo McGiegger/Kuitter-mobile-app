@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Animated, Platform
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useAuth } from '@/context/AuthContext'; // central session
+import supabaseClient from '../../supabaseClient';
 
 type Mode = 'signin' | 'signup';
 type ValidationError = {
@@ -22,6 +24,8 @@ export default function AuthScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<ValidationError>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { session, loading } = useAuth(); // pull from context
+
 
   const slideAnim = new Animated.Value(0);
 
@@ -58,19 +62,103 @@ export default function AuthScreen() {
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
-
+  
     setIsSubmitting(true);
     try {
-      // Here you would typically make an API call to authenticate
-      // For now, we'll just simulate a delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      router.push('/visibility');
+      if (mode === 'signin') {
+        // Use edge function for signin
+        const response = await fetch(process.env.EXPO_PUBLIC_API_URL + '/functions/v1/signin', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY}`
+           },
+          body: JSON.stringify({ email, password }),
+        });
+        
+        const result = await response.json();
+    
+        if (!response.ok) {
+          throw new Error(result.error || 'Something went wrong');
+        }
+
+      
+
+        // Set session from edge function response
+        if (result.session) {
+          const { error: sessionError } = await supabaseClient.auth.setSession({
+            access_token: result.session.access_token,
+            refresh_token: result.session.refresh_token
+          });
+        
+          if (sessionError) {
+            throw new Error('Failed to create session');
+          }
+        }
+        
+        const { data, error } = await supabaseClient
+        .from("users")
+        .select("username, profile_type")
+        .eq("id", session.user.id)
+        .single();
+  
+        if (error) {
+          console.error("Error fetching profile:", error);
+          return;
+        }
+  
+      // 👇 redirect if fields are missing
+        if (!data?.profile_type || !data?.username) {
+          router.replace("/(auth)/visibility");
+        }
+  
+
+        router.push('/(tabs)');
+      } else {
+        // Use edge function for signup
+        const response = await fetch(
+          process.env.EXPO_PUBLIC_API_URL + '/functions/v1/signup',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({ email, password }),
+          }
+        );
+      
+        const result = await response.json();
+      
+        if (!response.ok) {
+          throw new Error(result.error || 'Something went wrong');
+        }
+
+
+        // Important: Set session just like in signin
+        if (result.session) {
+          const { error: sessionError } = await supabaseClient.auth.setSession({
+            access_token: result.session.access_token,
+            refresh_token: result.session.refresh_token
+          });
+      
+          if (sessionError) {
+            throw new Error('Failed to create session');
+          }
+        }
+      
+        router.push('/(auth)/visibility');
+      }
+      
+  
     } catch (error) {
-      console.error('Authentication error:', error);
+      console.error('Auth error:', error);
+      setErrors({ ...errors, password: error.message });
     } finally {
       setIsSubmitting(false);
     }
   };
+  
 
   const toggleMode = () => {
     setMode(mode === 'signin' ? 'signup' : 'signin');
@@ -201,7 +289,6 @@ export default function AuthScreen() {
     </LinearGradient>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -291,3 +378,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+

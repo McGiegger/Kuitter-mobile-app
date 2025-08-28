@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { PartnershipProvider } from '@/context/PartnershipContext';
+import { AuthProvider } from "@/context/AuthContext";
 
 function RootLayoutContent() {
   return (
@@ -28,7 +29,9 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <PartnershipProvider>
-        <RootLayoutContent />
+        <AuthProvider>
+          <RootLayoutContent />
+        </AuthProvider>
       </PartnershipProvider>
     </ThemeProvider>
   );

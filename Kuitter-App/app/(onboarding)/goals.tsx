@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Slider from '@react-native-community/slider';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { useAuth } from '@/context/AuthContext'; // central session
+import supabaseClient from '../../supabaseClient';
 
 const goals = [
   "Improve my relationships",
@@ -21,6 +23,13 @@ export default function GoalSettingScreen() {
   const [step, setStep] = useState(1);
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [timeline, setTimeline] = useState(30);
+  const { session, loading } = useAuth(); // pull from context
+
+    useEffect(() => {
+      if (!loading && !session) {
+        router.replace("/(auth)/auth");
+      }
+    }, [session, loading]);
   
   const toggleGoal = (goal: string) => {
     if (selectedGoals.includes(goal)) {
@@ -30,13 +39,47 @@ export default function GoalSettingScreen() {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step < 3) {
       setStep(step + 1);
-    } else {
-      router.replace('/(tabs)');
+      return;
+    }
+  
+    if (!session) return;
+  
+    try {
+      const response = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}/functions/v1/submit-recovery-goals`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session.access_token}`, // secure user
+          },
+          body: JSON.stringify({
+            user_id: session.user.id,
+            goals: selectedGoals,
+            timeline: timeline,
+          }),
+        }
+      );
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        console.error("Failed to submit recovery goals:", data.error);
+        return;
+      }
+  
+      // Navigate to main app
+      router.replace("/(tabs)");
+  
+    } catch (err) {
+      console.error("Unexpected error submitting recovery goals:", err);
     }
   };
+  
+  
 
   const renderStep = () => {
     switch (step) {

@@ -1,17 +1,20 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Dialog from '@/components/Dialog';
 import { useTheme, themes } from '@/context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import supabaseClient from '../../supabaseClient';
 
 export default function SettingsScreen() {
   const { theme, toggleTheme, isDark } = useTheme();
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [notifications, setNotifications] = useState(true);
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const headerOpacity = useRef(new Animated.Value(0)).current;
 
   const colors = themes[theme].colors;
 
@@ -31,8 +34,15 @@ export default function SettingsScreen() {
 
   const confirmLogout = async () => {
     try {
+      // Sign out from Supabase
+      const { error } = await supabaseClient.auth.signOut();
+      if (error) {
+        console.error('Supabase signout error:', error);
+      }
+      
       // Clear all app data
       await AsyncStorage.clear();
+      
       // Navigate to auth screen
       router.replace('/(auth)');
     } catch (error) {
@@ -50,12 +60,43 @@ export default function SettingsScreen() {
     });
   };
 
+  const handleScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+    {
+      useNativeDriver: false,
+      listener: (event: any) => {
+        const offsetY = event.nativeEvent.contentOffset.y;
+        const opacity = Math.min(offsetY / 100, 1);
+        headerOpacity.setValue(opacity);
+      },
+    }
+  );
+
   return (
     <LinearGradient
       colors={colors.background as any}
       style={styles.container}
     >
-      <ScrollView style={styles.content}>
+      {/* Animated Header */}
+      <Animated.View 
+        style={[
+          styles.animatedHeader,
+          {
+            backgroundColor: colors.surface,
+            opacity: headerOpacity,
+            borderBottomColor: colors.border,
+          }
+        ]}
+      >
+        <Text style={[styles.animatedHeaderTitle, { color: colors.text }]}>Settings</Text>
+      </Animated.View>
+
+      <ScrollView 
+        style={styles.content}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.header}>
           <Text style={[styles.headerTitle, { color: colors.text }]}>Settings</Text>
           <Text style={[styles.headerSubtitle, { color: colors.textSecondary }]}>Manage your preferences</Text>
@@ -211,6 +252,22 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  animatedHeader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 90,
+    zIndex: 1000,
+    justifyContent: 'flex-end',
+    paddingBottom: 12,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+  },
+  animatedHeaderTitle: {
+    fontSize: 18,
+    fontWeight: '600',
   },
   content: {
     flex: 1,
