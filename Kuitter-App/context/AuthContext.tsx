@@ -8,7 +8,7 @@ export function useAuth() { return useContext(AuthContext); }
 export function AuthProvider({ children }) { 
 const [session, setSession] = useState(null); 
 const [loading, setLoading] = useState(true); 
-effect(() => { 
+useEffect(() => { 
   // Get session on mount 
   supabaseClient.auth.getSession().then(({ data: { session } }) => { 
     setSession(session); 
